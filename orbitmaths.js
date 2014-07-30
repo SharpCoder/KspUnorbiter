@@ -40,7 +40,7 @@ OrbitalMaths = (function() {
 		else if ( shape == 2 ) return 1;
 	}
 	
-	function calculate( planet, size, orbit, engine, altitude, velocity ) {
+	function calculate( planet, size, engine, altitude, velocity ) {
 		
 		// Fix the numbers.
 		altitude = parseFloat( altitude );
@@ -48,7 +48,6 @@ OrbitalMaths = (function() {
 	
 		// Derive our celestial variables.
 		var radius = getRadius( planet );
-		var constant = getOrbitalConstant( orbit );
 					
 		// Calculate how many seconds until we hit (without gravity).
 		var eta = altitude / velocity;
@@ -68,7 +67,7 @@ OrbitalMaths = (function() {
 		} while ( tAcc > 0 && a != 0 && twr != 0);
 		
 		// Calculate how many seconds it takes to reach 0 velocity.
-		var eta0 = Math.sqrt( sec * constant );
+		var eta0 = Math.sqrt( sec );
 		
 		// Calculate how far you will travel in that time.
 		var dist = 0;
@@ -81,12 +80,11 @@ OrbitalMaths = (function() {
 	}
 	
 	return {
-		Calculate: function( planet, size, orbit, engine, altitude, velocity ) {
+		Calculate: function( planet, size, engine, altitude, velocity ) {
 		
 			// Fix the numbers.
 			altitude = parseFloat( altitude );
 			velocity = parseFloat( velocity );
-			var constant = getOrbitalConstant( orbit );
 			var eta = altitude / velocity;
 			var alt = altitude;
 			var best = 0;
@@ -95,7 +93,7 @@ OrbitalMaths = (function() {
 			// the 'optimum' one. This is very scientific here.
 			for ( var i = 0; i < eta; i++ ) {
 				// Iterate.
-				var result = calculate(planet, size, orbit, engine, altitude, velocity);
+				var result = calculate(planet, size, engine, altitude, velocity);
 				alt -= velocity;
 				velocity += Math.sqrt(getGravityConstant(planet));
 				if ( result < alt ) best = result;

@@ -24,12 +24,11 @@ KSP Un-Orbit Calculator
 	function calculate() {
 		var planet = $("#planet").val();
 		var size = $("#size").val();
-		var orbit = $("#orbit").val();
 		var engine = $("#engine").val();
 		var altitude = $("#altitude").val();
 		var velocity = $("#dv").val();
 		
-		var burnAt = OrbitalMaths.Calculate( planet, size, orbit, engine, altitude, velocity );
+		var burnAt = OrbitalMaths.Calculate( planet, size, engine, altitude, velocity );
 		if ( burnAt == -1 ) {
 			$("#burnAt").html("<span class='warning'>You will not be going to space today. Or ever.</span>");
 		} else {
@@ -50,15 +49,6 @@ Welcome to the KSP Un-Orbit Calculator written by SharpCoder (<a target="_new" h
 		<option value="2">Minmus</option>
 	</select>
 
-</p>
-<p>
-	<img src="info.png" width="16" title="What is the shape of your approach orbit towards the target planet?" />
-	<label for="orbit">(Unbounded) Orbital Shape</label>
-	<select name="orbit" id="orbit">
-		<option value="0">Curved</option>
-		<option value="1">Very Curved</option>
-		<option value="2">Perfectly Vertical</option>
-	</select>
 </p>
 <p>
 	<img src="info.png" width="16" title="Roughly how big is your ship?" />
