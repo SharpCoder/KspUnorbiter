@@ -39,6 +39,20 @@ OrbitalMaths = (function() {
 		else if ( shape == 1 ) return 1.8;
 		else if ( shape == 2 ) return 1;
 	}
+
+	// Code from http://www.mredkj.com/javascript/numberFormat.html#addcommas
+	function addCommas(nStr)
+	{
+		nStr += '';
+		x = nStr.split('.');
+		x1 = x[0];
+		x2 = x.length > 1 ? '.' + x[1] : '';
+		var rgx = /(\d+)(\d{3})/;
+		while (rgx.test(x1)) {
+			x1 = x1.replace(rgx, '$1' + ',' + '$2');
+		}
+		return x1 + x2;
+	}
 	
 	function calculate( planet, size, engine, altitude, velocity ) {
 		
@@ -101,7 +115,7 @@ OrbitalMaths = (function() {
 			
 			// Check if we're dead, jim.
 			if ( result > altitude ) return -1;
-			return result;
+			return addCommas(result);
 			
 		}
 	};
