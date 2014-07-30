@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>
+KSP Un-Orbit Calculator
+</title>
+<link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
+<style type="text/css">
+	.result {
+		font-weight: bold;
+		font-size: 26px;
+		margin-top: 50px;
+	}
+	.warning {
+		color: red;
+	}
+	body {
+		margin: 100px;
+		font-family: 'Titillium Web', sans-serif;
+	}
+</style>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="orbitmaths.js"></script>
+<script type="text/javascript">
+	function calculate() {
+		var planet = $("#planet").val();
+		var size = $("#size").val();
+		var orbit = $("#orbit").val();
+		var engine = $("#engine").val();
+		var altitude = $("#altitude").val();
+		var velocity = $("#dv").val();
+		
+		var burnAt = OrbitalMaths.Calculate( planet, size, orbit, engine, altitude, velocity );
+		if ( burnAt == -1 ) {
+			$("#burnAt").html("<span class='warning'>You will not be going to space today. Or ever.</span>");
+		} else {
+			$("#burnAt").html("Punch it @ " + burnAt + " meters.");
+		}
+	}
+</script>
+</head>
+<h1>KSP Un-Orbit Calculator</h1>
+<p>
+Welcome to the KSP Un-Orbit Calculator written by SharpCoder (<a target="_new" href="https://twitter.com/debugglesoft">@debugglesoft</a>). This calculator is designed to tell you roughly when to burn retrograde during a landing. I am not a mathematics guy, so this works more like a simulator. Think <a target="_new" href="http://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo Method</a>! In an effort to make it really easy to use (and in traditional kerbal fashion) I've made a lot of assumptions about your ship and its orbit. <span class="warning">USE AT YOUR OWN RISK!</span></p>
+<br />
+<p>
+	<img src="info.png" width="16" title="Which planet are you trying to land at?" />
+	<label for="planet">Orbiting Planet</label>
+	<select name="planet" id="planet">
+		<option value="1">Mün</option>
+		<option value="2">Minmus</option>
+	</select>
+
+</p>
+<p>
+	<img src="info.png" width="16" title="What is the shape of your approach orbit towards the target planet?" />
+	<label for="orbit">(Unbounded) Orbital Shape</label>
+	<select name="orbit" id="orbit">
+		<option value="0">Curved</option>
+		<option value="1">Very Curved</option>
+		<option value="2">Perfectly Vertical</option>
+	</select>
+</p>
+<p>
+	<img src="info.png" width="16" title="Roughly how big is your ship?" />
+	<label for="size">Approx Ship Size</label>
+	<select name="size" id="size">
+		<option value="1">Small</option>
+		<option value="0">Tiny</option>
+		<option value="2">Medium</option>
+		<option value="3">Large</option>
+	</select>
+</p>
+<p>
+	<img src="info.png" width="16" title="Which engine are you using? Note: I assume you only have 1 engine. If you have more... that's okay?" />
+	<label for="engine">Primary Engine</label>
+	<select name="engine" id="engine">
+		<option value="0">LV-909</option>
+	</select>
+</p>
+<p>
+	<img src="info.png" width="16" title="What is your last known altitude from the planet? Note: This assumes you are closeish to the planet and should be in meters." />
+	<label for="altitude">Last known altitude (m)</label>
+	<input type="text" name="altitude" id="altitude" value="70000" />
+</p>
+<p>
+	<img src="info.png" width="16" title="What is your last known velocity?" />
+	<label for="dv">Last known velocity (m/s)</label>
+	<input type="text" name="dv" id="dv" value="800" />
+</p>
+<p>
+	<input type="button" value="Calculate" onclick="calculate();" />
+</p>
+<p>
+	<div id="burnAt" class="result">
+	</div>
+</p>
+</html>
