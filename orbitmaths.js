@@ -5,24 +5,12 @@
 // level kerbal physics.
 
 OrbitalMaths = (function() {
-	
-	function getGravityConstant( planet ) {
-		if ( planet == 0 ) return 9.81; // Kerbin
-		else if ( planet == 1 ) return 1.63; // Mun
-		else if ( planet == 2 ) return 1; // Minmus
-	}
-	
-	function getRadius( planet ) {
-		if ( planet == 0 ) return 600000; // Kerbin
-		else if ( planet == 1 ) return 200000; // Mun
-		else if ( planet == 2 ) return 60000; // Minmus
-	}
-	
+		
 	function getMass( size ) {
 		if ( size == 0 ) return 3;
 		else if ( size == 1 ) return 5;
-		else if ( size == 2 ) return 8;
-		else return 15;
+		else if ( size == 2 ) return 15;
+		else return 30;
 	}
 	
 	function getThrust( engine ) {
@@ -48,14 +36,11 @@ OrbitalMaths = (function() {
 		return x1 + x2;
 	}
 	
-	function calculate( planet, size, engine, altitude, velocity ) {
+	function calculate( g, size, engine, altitude, velocity ) {
 		
 		// Fix the numbers.
 		altitude = parseFloat( altitude );
 		velocity = parseFloat( velocity );
-	
-		// Derive our celestial variables.
-		var radius = getRadius( planet );
 					
 		// Calculate how many seconds until we hit (without gravity).
 		var eta = altitude / velocity;
@@ -64,7 +49,6 @@ OrbitalMaths = (function() {
 		var tVel = velocity;
 		
 		var m = getMass(size);
-		var g = getGravityConstant(planet);
 		var Ft = m * g;
 		var a = (Ft / m) * g;
 		var twr = (getThrust(engine) / (m * g));
@@ -88,7 +72,7 @@ OrbitalMaths = (function() {
 	}
 	
 	return {
-		Calculate: function( planet, size, engine, altitude, velocity ) {
+		Calculate: function( g, size, engine, altitude, velocity ) {
 		
 			// Fix the numbers.
 			altitude = parseFloat( altitude );
@@ -101,9 +85,9 @@ OrbitalMaths = (function() {
 			// the 'optimum' one. This is very scientific here.
 			for ( var i = 0; i < eta; i++ ) {
 				// Iterate.
-				var result = calculate(planet, size, engine, altitude, velocity);
+				var result = calculate(g, size, engine, altitude, velocity);
 				alt -= velocity;
-				velocity += Math.sqrt(getGravityConstant(planet));
+				velocity += Math.sqrt(g);
 				if ( result < alt ) best = result;
 			}
 			
