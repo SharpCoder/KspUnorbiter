@@ -8,13 +8,30 @@ KSP Un-Orbit Calculator
 	.result {
 		font-weight: bold;
 		font-size: 26px;
-		margin-top: 50px;
 	}
 	.warning {
 		color: red;
 	}
+	h1 {
+		color: #cc0000;
+	}
+	input[type=button] {
+		width: 150px;
+		height: 40px;
+		border: 1px solid black;
+		font-weight: bold;
+		background-color: white;
+		margin: 40px 0px;
+	}
+	input[type=button]:hover {
+		color: white;
+		font-weight: bold;
+		background-color: #CC0000;
+		cursor: pointer;
+	}
 	body {
 		margin: 100px;
+		margin-top: 50px;
 		font-family: 'Titillium Web', sans-serif;
 	}
 </style>
@@ -43,7 +60,7 @@ Welcome to the KSP Un-Orbit Calculator written by SharpCoder (<a target="_new" h
 <br />
 <p>
 	<img src="info.png" width="16" title="Which planet are you trying to land at?" />
-	<label for="planet">Orbiting Planet</label>
+	<label for="planet">Target Planet</label>
 	<select name="planet" id="planet">
 		<option value="1">Mün</option>
 		<option value="2">Minmus</option>

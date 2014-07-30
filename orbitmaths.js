@@ -34,12 +34,6 @@ OrbitalMaths = (function() {
 		else if ( engine == 5 ) return 60; // Atomic Rocket
 	}
 	
-	function getOrbitalConstant( shape ) {
-		if ( shape == 0 ) return 1.4;
-		else if ( shape == 1 ) return 1.8;
-		else if ( shape == 2 ) return 1;
-	}
-
 	// Code from http://www.mredkj.com/javascript/numberFormat.html#addcommas
 	function addCommas(nStr)
 	{
