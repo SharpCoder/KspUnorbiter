@@ -27,6 +27,11 @@ OrbitalMaths = (function() {
 	
 	function getThrust( engine ) {
 		if ( engine == 0 ) return 50; // LVL-909
+		else if ( engine == 1 ) return 215; // LV-T30
+		else if ( engine == 2 ) return 200; // LV-T45
+		else if ( engine == 3 ) return 650; // Skipper
+		else if ( engine == 4 ) return 1500; // Mainsail
+		else if ( engine == 5 ) return 60; // Atomic Rocket
 	}
 	
 	function getOrbitalConstant( shape ) {
@@ -60,14 +65,14 @@ OrbitalMaths = (function() {
 		do {
 			sec++;
 			tAcc -= a * twr;
-		} while ( tAcc > 0 || a == 0 || twr == 0);
+		} while ( tAcc > 0 && a != 0 && twr != 0);
 		
 		// Calculate how many seconds it takes to reach 0 velocity.
 		var eta0 = Math.sqrt( sec * constant );
 		
 		// Calculate how far you will travel in that time.
 		var dist = 0;
-		for ( var i = 0; i < eta0; i++ ) {
+		for ( var i = 0; i < eta0 && tVel > 0; i++ ) {
 			dist += tVel;
 			tVel -= a * twr;
 		}
